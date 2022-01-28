@@ -1,6 +1,6 @@
 Movie crawler that navigates to "https://www.themoviedb.org".<br>
 The service iterates through movie?page=page_number srarting from page 1 until we get response with data for current page.<br>
-From web page service get movie name and movie image.<br>
+From web page the service gets movie name and movie image.<br>
 These data then saves in SQLite database(movies table).<br>
 
 
