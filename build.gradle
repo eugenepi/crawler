@@ -1,0 +1,49 @@
+
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id "com.github.johnrengelman.shadow" version "5.1.0"
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+}
+
+dependencies {
+    implementation 'org.jsoup:jsoup:1.14.3'
+    implementation 'org.javalite:activejdbc:3.0-j11'
+    implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testImplementation 'org.awaitility:awaitility:4.1.1'
+}
+
+group = 'com.moviedb'
+version = '1.0-SNAPSHOT'
+description = 'crawler'
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+jar {
+    manifest {
+        attributes 'Main-Class': "com.moviedb.crawler.MovieDBApplication"
+    }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}

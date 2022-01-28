@@ -1,0 +1,9 @@
+version: "3"
+services:
+
+  movie-crawler:
+    build: .
+    environment:
+      DB_PATH: database/movies.db
+    volumes:
+      - path_to_database_folder:/database
