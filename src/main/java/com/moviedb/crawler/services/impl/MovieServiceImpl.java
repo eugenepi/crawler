@@ -20,9 +20,15 @@ public class MovieServiceImpl implements MovieService {
 
     private static final Logger logger = Logger.getLogger(MovieServiceImpl.class.getName());
 
-    @Override
-    public List<MovieDto> getMovieInfo(Integer page) {
-        Document document = null;
+  /**
+   * Grabs name and image from page for each movie.
+   *
+   * @param page page that we want to parse
+   * @return List<MovieDto>
+   */
+  @Override
+  public List<MovieDto> getMovieInfo(Integer page) {
+        Document document;
         List<MovieDto> movieDtos = new ArrayList<>();
         try {
             document = Jsoup.connect("https://www.themoviedb.org/movie?page=" + page).get();

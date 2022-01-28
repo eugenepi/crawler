@@ -19,8 +19,13 @@ public class DBServiceImpl implements DBService {
         this.db = db;
     }
 
-    @Override
-    public void save(List<MovieDto> movieDtoList) {
+    /**
+     * Saves batch of MovieDto to database
+     *
+     * @param movieDtoList List of movies
+     */
+  @Override
+  public void save(List<MovieDto> movieDtoList) {
         PreparedStatement preparedStatement
                 = db.startBatch("insert into movies(name,image) values(?,?)");
         for (MovieDto movieDto : movieDtoList) {

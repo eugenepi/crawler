@@ -14,6 +14,8 @@ public class DBServiceRunner {
     private final DBService dbService;
     private final BlockingQueue<MovieDto> blockingQueue;
 
+    private final static int BATCH_SIZE = 10;
+
     private static final Logger logger = Logger.getLogger(DBServiceRunner.class.getName());
 
     public DBServiceRunner(DBService dbService, BlockingQueue<MovieDto> blockingQueue) {
@@ -21,13 +23,18 @@ public class DBServiceRunner {
         this.blockingQueue = blockingQueue;
     }
 
-    public void run() {
+    /**
+     * Runs database service.
+     * Create batches to save in database.
+     *
+     */
+  public void run() {
         List<MovieDto> movieDtoList = new ArrayList<>();
         while (true) {
             try {
                 MovieDto movieDto = blockingQueue.take();
                 movieDtoList.add(movieDto);
-                if (movieDtoList.size() >= 10) {
+                if (movieDtoList.size() >= BATCH_SIZE) {
                     dbService.save(movieDtoList);
                     movieDtoList.clear();
                 }
